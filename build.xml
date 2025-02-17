@@ -1,0 +1,31 @@
+<project name="Tucil1_13523063" default="compile" basedir=".">
+
+    <!-- Directories -->
+    <property name="src.dir" value="src/tucil1_13523063"/>
+    <property name="test.dir" value="src/test"/>
+    <property name="build.dir" value="bin"/>
+
+    <!-- Create the build directory structure used by compile -->
+    <target name="init">
+        <mkdir dir="${build.dir}"/>
+    </target>
+
+    <!-- Compile the Java source files into the build directory -->
+    <target name="compile" depends="init">
+        <javac srcdir="${src.dir}" destdir="${build.dir}"/>
+    </target>
+
+    <!-- Create jar -->
+    <target name="package" depends="compile">
+        <jar destfile="${build.dir}/iq.jar" basedir="${build.dir}">
+            <manifest>
+                <attribute name="Main-Class" value="tucil1_13523063.Main"/>
+            </manifest>
+        </jar>
+    </target>
+
+    <!-- Clean up the build directory -->
+    <target name="clean">
+        <delete dir="${build.dir}"/>
+    </target>
+</project>
