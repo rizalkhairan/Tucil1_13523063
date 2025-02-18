@@ -13,6 +13,7 @@ public class Problem {
     boolean[] used_block;
     int empty_space;
     boolean isSolved;
+    int case_tested;
 
     /* Constructor */
     // All setters has to be called manually and succesfully

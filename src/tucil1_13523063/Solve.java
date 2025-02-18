@@ -55,6 +55,7 @@ public class Solve {
 
         if (problem.placeable_block(blockIndex, coord)) {
             problem.place_block(blockIndex, coord);
+            problem.case_tested++;
 
             recurse_default(problem, blockIndex+1);
 
