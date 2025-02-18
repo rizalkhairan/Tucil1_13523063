@@ -4,6 +4,8 @@
     <property name="src.dir" value="src/tucil1_13523063"/>
     <property name="test.dir" value="src/test"/>
     <property name="build.dir" value="bin"/>
+    <property name="jar.name" value="iq.jar"/>
+    <property name="test.name" value="test.jar"/>
 
     <!-- Create the build directory structure used by compile -->
     <target name="init">
@@ -17,7 +19,8 @@
 
     <!-- Create jar -->
     <target name="package" depends="compile">
-        <jar destfile="${build.dir}/iq.jar" basedir="${build.dir}">
+        <jar destfile="${build.dir}/${jar.name}" basedir="${build.dir}">
+            <exclude name="${jar.name}"/>
             <manifest>
                 <attribute name="Main-Class" value="tucil1_13523063.Main"/>
             </manifest>
