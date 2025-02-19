@@ -5,16 +5,16 @@ import java.util.List;
 public class Problem {
     static String[] modes = {"DEFAULT"};
 
-    int n, m, p;
-    String s;
+    int width, height, blocksAvailable;
+    String mode;
     Block[] blocks;
     
     char[][] board;
-    boolean[] used_block;
+    boolean[] usedBlock;
     Coordinate[] possibleCoordinates;
-    int empty_space;
+    int emptySpace;
     boolean isSolved;
-    int case_tested;
+    int caseTested;
 
     /* Constructor */
     // All setters has to be called manually and succesfully
@@ -23,8 +23,8 @@ public class Problem {
         if (n < 0 || m < 0) {
             return -1;
         }
-        this.n = n;
-        this.m = m;
+        this.height = n;
+        this.width = m;
         return 0;
     }
 
@@ -32,14 +32,14 @@ public class Problem {
         if (p < 0) {
             return -1;
         }
-        this.p = p;
+        this.blocksAvailable = p;
         return 0;
     }
 
     public int set_mode(String s) {
         for (int i=0;i<modes.length;i++) {
             if (s.equals(Problem.modes[i])) {
-                this.s = s;
+                this.mode = s;
                 return 0;
             }
         }
@@ -47,24 +47,20 @@ public class Problem {
     }
     
     public int set_board(char[][] customBoard) {
-        if (this.s.equals("DEFAULT")) {
+        if (this.mode.equals("DEFAULT")) {
             // Rectangular board
-            this.board = new char[this.n][this.m];
-            for (int i=0;i<this.n;i++) {
-                for (int j=0;j<this.m;j++) {
+            this.board = new char[this.height][this.width];
+            for (int i=0;i<this.height;i++) {
+                for (int j=0;j<this.width;j++) {
                     this.board[i][j] = Block.blank;
                 }
             }
-            this.used_block = new boolean[this.p];
-            for (int i=0;i<this.p;i++) {
-                this.used_block[i] = false;
-            }
-            this.empty_space = this.n * this.m;
+            this.emptySpace = this.width * this.height;
             this.isSolved = false;
-            this.possibleCoordinates = new Coordinate[this.n * this.m];
-            for (int i=0;i<this.n;i++) {
-                for (int j=0;j<this.m;j++) {
-                    this.possibleCoordinates[i*this.m + j] = new Coordinate(j, i);
+            this.possibleCoordinates = new Coordinate[this.width * this.height];
+            for (int i=0;i<this.height;i++) {
+                for (int j=0;j<this.width;j++) {
+                    this.possibleCoordinates[i * this.width + j] = new Coordinate(j, i);
                 }
             }
             return 0;
@@ -76,7 +72,7 @@ public class Problem {
 
     public int set_blocks(List<Block> blocks) {
         // Check if all blocks are inputted
-        if (blocks.size() != this.p) {
+        if (blocks.size() != this.blocksAvailable) {
             return -1;
         }
 
@@ -95,13 +91,17 @@ public class Problem {
         for (int i=0;i<blocks.size();i++) {
             this.blocks[i] = blocks.get(i);
         }
-
+        this.usedBlock = new boolean[this.blocksAvailable];
+        for (int i=0;i<this.blocksAvailable;i++) {
+            this.usedBlock[i] = false;
+        }
+        
         // Count the space of all blocks
         int total_space = 0;
-        for (int i=0;i<blocks.size();i++) {
+        for (int i=0;i<this.blocks.length;i++) {
             total_space += this.blocks[i].shape.length;
         }
-        if (total_space != this.empty_space) {
+        if (total_space != this.emptySpace) {
             return 1;  // Guaranteed to not have solution
         }
 
@@ -112,7 +112,7 @@ public class Problem {
     /*  Board modification for solving */
     public boolean placeable_block(int block_index, Coordinate coordinate) {
         // If block already used
-        if (this.used_block[block_index]) {
+        if (this.usedBlock[block_index]) {
             return false;
         }
 
@@ -121,7 +121,7 @@ public class Problem {
         for (int i=0;i<block.shape.length;i++) {
             int x = block.shape[i].x + coordinate.x;
             int y = block.shape[i].y + coordinate.y;
-            if (x < 0 || x >= this.m || y < 0 || y >= this.n) {
+            if (x < 0 || x >= this.width || y < 0 || y >= this.height) {
                 return false;
             }
             if (this.board[y][x] != Block.blank) {
@@ -134,12 +134,12 @@ public class Problem {
 
     public void place_block(int block_index, Coordinate coordinate) {
         Block block = this.blocks[block_index];
-        this.used_block[block_index] = true;
+        this.usedBlock[block_index] = true;
         for (int i=0;i<block.shape.length;i++) {
             int x = block.shape[i].x + coordinate.x;
             int y = block.shape[i].y + coordinate.y;
             this.board[y][x] = block.name;
-            this.empty_space--;
+            this.emptySpace--;
         }
     }
 
@@ -147,12 +147,12 @@ public class Problem {
     public void remove_block(int block_index, Coordinate coordinate) {
 
         Block block = this.blocks[block_index];
-        this.used_block[block_index] = false;
+        this.usedBlock[block_index] = false;
         for (int i=0;i<block.shape.length;i++) {
             int x = block.shape[i].x + coordinate.x;
             int y = block.shape[i].y + coordinate.y;
             this.board[y][x] = Block.blank;
-            this.empty_space++;
+            this.emptySpace++;
         }
     }
 
@@ -164,13 +164,13 @@ public class Problem {
 
         /* Solve conditions */
         // Completely filled
-        if (this.empty_space != 0) {
+        if (this.emptySpace != 0) {
             return false;
         }
 
         // All blocks used
-        for (int i=0;i<this.p;i++) {
-            if (!this.used_block[i]) {
+        for (int i=0;i<this.blocksAvailable;i++) {
+            if (!this.usedBlock[i]) {
                 return false;
             }
         }
@@ -182,8 +182,8 @@ public class Problem {
     // Not pretty print. Better display should be in Output.java
     public void display_board() {
 
-        for (int i=0;i<this.n;i++) {
-            for (int j=0;j<this.m;j++) {
+        for (int i=0;i<this.height;i++) {
+            for (int j=0;j<this.height;j++) {
                 System.out.print(this.board[i][j]);
             }
             System.out.println();

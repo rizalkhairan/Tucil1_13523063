@@ -51,7 +51,7 @@ public class Output {
             System.out.println("\nSolusi ditemukan!");
             Output.display_board(problem);
             System.out.println("\nWaktu pencarian: " + timeElapsed + " ms");
-            System.out.println("\nJumlah kasus yang ditinjau: " + problem.case_tested);
+            System.out.println("\nJumlah kasus yang ditinjau: " + problem.caseTested);
 
             System.out.print("Apakah anda ingin menyimpan solusi? [Y/N] ");
             Scanner input = new Scanner(System.in);
@@ -63,7 +63,7 @@ public class Output {
         } else {
             System.out.println("\nTidak ada solusi yang ditemukan");
             System.out.println("\nWaktu pencarian: " + timeElapsed + " ms");
-            System.out.println("\nJumlah kasus yang ditinjau: " + problem.case_tested);
+            System.out.println("\nJumlah kasus yang ditinjau: " + problem.caseTested);
         }
     }
 

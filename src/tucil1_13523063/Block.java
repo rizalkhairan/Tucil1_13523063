@@ -4,7 +4,8 @@ import java.util.List;
 
 public class Block {
     static char blank = '_';
-    static char filled_default = '#';
+    static char filledDefault = '#';
+    static char invalid = '.';
 
     char name;
     Coordinate[] shape;

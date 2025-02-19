@@ -2,7 +2,7 @@ package tucil1_13523063;
 
 public class Solve {
     public static Problem solve(Problem problem) {
-        if (problem.s.equals("DEFAULT")) {
+        if (problem.mode.equals("DEFAULT")) {
             problem.set_board(null);    // Empty board
 
             Solve.recurse_default(problem, 0);
@@ -15,7 +15,7 @@ public class Solve {
     }
 
     public static void recurse_default(Problem problem, int blockIndex) {
-        if (blockIndex >= problem.p || problem.solved()) {
+        if (blockIndex >= problem.blocksAvailable || problem.solved()) {
             return;
         }
 
@@ -51,7 +51,7 @@ public class Solve {
 
         if (problem.placeable_block(blockIndex, coord)) {
             problem.place_block(blockIndex, coord);
-            problem.case_tested++;
+            problem.caseTested++;
 
             recurse_default(problem, blockIndex+1);
 
