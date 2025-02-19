@@ -45,20 +45,21 @@ public class Solve {
     }
 
     public static void recurse_default_branch(Problem problem, int blockIndex, Coordinate coord) {
-        if (problem.solved()) {
-            return;
-        }
-
-        if (problem.placeable_block(blockIndex, coord)) {
-            problem.place_block(blockIndex, coord);
-            problem.caseTested++;
-
-            recurse_default(problem, blockIndex+1);
-
-            if (!problem.solved()) {
+        if (!problem.solved()) {
+            if (problem.placeable_block(blockIndex, coord)) {
+                problem.place_block(blockIndex, coord);
+                problem.caseTested++;
+    
+                recurse_default(problem, blockIndex+1);
+    
+                if (problem.solved()) {
+                    return;
+                }
+                
                 problem.remove_block(blockIndex, coord);
-                problem.blocks[blockIndex].rotate_90_cw(blockIndex);
             }
+
+            problem.blocks[blockIndex].rotate_90_cw(1);
         }
     }
 }
