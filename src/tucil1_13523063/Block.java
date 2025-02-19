@@ -13,7 +13,11 @@ public class Block {
         this.name = name;
         int points = 0;
         for (int i=0;i<input.size();i++) {
-            points += input.get(i).length();
+            for (int j=0;j<input.get(i).length();j++) {
+                if (input.get(i).charAt(j) == name) {
+                    points++;
+                }
+            }
         }
 
         this.shape = new Coordinate[points];
