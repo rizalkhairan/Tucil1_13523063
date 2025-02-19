@@ -75,9 +75,15 @@ public class Input {
 
         validity = problem.set_blocks(blocks);
         if (validity != 0) {
-            System.out.println("Invalid blocks");
-            return null;
+            if (validity == 1) {
+                System.out.println("WARNING: The blocks provided do not have the total space that can completely occupy and fit the whole board. No solution is possible");
+                System.out.println("Attempt to solve the problem anyway...");
+            } else {
+                System.out.println("Invalid blocks");
+                return null;
+            }
         }
+        blocks.clear();
 
         return problem;
     }
