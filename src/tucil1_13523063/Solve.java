@@ -15,7 +15,7 @@ public class Solve {
     }
 
     public static void recurse_default(Problem problem, int blockIndex) {
-        if (problem.solved()) {
+        if (blockIndex >= problem.p || problem.solved()) {
             return;
         }
 
@@ -35,7 +35,7 @@ public class Solve {
                 Solve.recurse_default_branch(problem, blockIndex, coord);
 
                 // Horizontally flipped. All rotations
-                if (!problem.isSolved) {
+                if (!problem.solved()) {
                     currentBlock.reflect_horizontal();
                     Solve.recurse_default_branch(problem, blockIndex, coord);
                     Solve.recurse_default_branch(problem, blockIndex, coord);
@@ -49,7 +49,7 @@ public class Solve {
     }
 
     public static void recurse_default_branch(Problem problem, int blockIndex, Coordinate coord) {
-        if (problem.isSolved || problem.solved()) {
+        if (problem.solved()) {
             return;
         }
 
@@ -59,7 +59,7 @@ public class Solve {
 
             recurse_default(problem, blockIndex+1);
 
-            if (!problem.isSolved) {
+            if (!problem.solved()) {
                 problem.remove_block(blockIndex, coord);
                 problem.blocks[blockIndex].rotate_90_cw(blockIndex);
             }

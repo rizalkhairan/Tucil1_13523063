@@ -128,6 +128,11 @@ public class Problem {
 
     /* Solution state */
     public boolean solved() {
+        if (this.isSolved) {
+            return true;    // Already passed all solve condition
+        }
+
+        /* Solve conditions */
         // Completely filled
         if (this.empty_space != 0) {
             return false;
