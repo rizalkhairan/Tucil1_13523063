@@ -1,11 +1,15 @@
 package tucil1_13523063;
 
-import java.util.List;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Map;
-import java.util.ArrayList;
+import java.util.Scanner;
 import java.util.HashMap;
 
 public class Output {
+    static String outputPath = "output/";
+
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String RED = "\u001B[31m";
     public static final String ORANGE = "\u001B[38;5;208m";
@@ -48,10 +52,42 @@ public class Output {
             Output.display_board(problem);
             System.out.println("\nWaktu pencarian: " + timeElapsed + " ms");
             System.out.println("\nJumlah kasus yang ditinjau: " + problem.case_tested);
+
+            System.out.print("Apakah anda ingin menyimpan solusi? [Y/N] ");
+            Scanner input = new Scanner(System.in);
+            String save = input.nextLine();
+
+            if (save.equals("Y") || save.equals("y")) {
+                Output.save_solution(problem);
+            }
         } else {
             System.out.println("\nTidak ada solusi yang ditemukan");
             System.out.println("\nWaktu pencarian: " + timeElapsed + " ms");
             System.out.println("\nJumlah kasus yang ditinjau: " + problem.case_tested);
+        }
+    }
+
+    public static void save_solution(Problem problem) {
+        System.out.print("Masukkan nama file: ");
+        Scanner input = new Scanner(System.in);
+        String filename = input.nextLine();
+
+        try {
+            File file = new File(Output.outputPath + filename);
+            FileWriter writer = new FileWriter(file);
+
+            for (int y = 0; y < problem.board.length; y++) {
+                for (int x = 0; x < problem.board[y].length; x++) {
+                    writer.write(problem.board[y][x]);
+                }
+                writer.write("\n");
+            }
+
+            writer.close();
+            System.out.println("Solusi berhasil disimpan!");
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Gagal menyimpan solusi");
         }
     }
 }
