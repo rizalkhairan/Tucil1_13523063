@@ -11,6 +11,7 @@ public class Problem {
     
     char[][] board;
     boolean[] used_block;
+    Coordinate[] possibleCoordinates;
     int empty_space;
     boolean isSolved;
     int case_tested;
@@ -55,8 +56,17 @@ public class Problem {
                 }
             }
             this.used_block = new boolean[this.p];
+            for (int i=0;i<this.p;i++) {
+                this.used_block[i] = false;
+            }
             this.empty_space = this.n * this.m;
             this.isSolved = false;
+            this.possibleCoordinates = new Coordinate[this.n * this.m];
+            for (int i=0;i<this.n;i++) {
+                for (int j=0;j<this.m;j++) {
+                    this.possibleCoordinates[i*this.m + j] = new Coordinate(j, i);
+                }
+            }
             return 0;
         } else {
             System.out.println("Invalid board");

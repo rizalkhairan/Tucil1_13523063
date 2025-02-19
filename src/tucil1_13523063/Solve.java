@@ -21,31 +21,27 @@ public class Solve {
 
         Block currentBlock = problem.blocks[blockIndex];
         // Place block on each possible position
-        for (int i=0;i<problem.n;i++) {
-            for (int j=0;j<problem.m;j++) {
-                Coordinate coord = new Coordinate(j, i);
-
-                // recurse_default_branch place the block, recurse, remove, then rotate the block
-                // recurse_default_branch does not do anything if the problem is solved                
-                
-                // Not flipped. All rotations
+        for (int i=0;i<problem.possibleCoordinates.length;i++) {
+            Coordinate coord = problem.possibleCoordinates[i];
+            
+            // recurse_default_branch place the block, recurse, remove, then rotate the block
+            // recurse_default_branch does not do anything if the problem is solved                
+            
+            // Not flipped. All rotations
+            Solve.recurse_default_branch(problem, blockIndex, coord);
+            Solve.recurse_default_branch(problem, blockIndex, coord);
+            Solve.recurse_default_branch(problem, blockIndex, coord);
+            Solve.recurse_default_branch(problem, blockIndex, coord);
+    
+            // Horizontally flipped. All rotations
+            if (!problem.solved()) {
+                currentBlock.reflect_horizontal();
                 Solve.recurse_default_branch(problem, blockIndex, coord);
                 Solve.recurse_default_branch(problem, blockIndex, coord);
                 Solve.recurse_default_branch(problem, blockIndex, coord);
                 Solve.recurse_default_branch(problem, blockIndex, coord);
-
-                // Horizontally flipped. All rotations
-                if (!problem.solved()) {
-                    currentBlock.reflect_horizontal();
-                    Solve.recurse_default_branch(problem, blockIndex, coord);
-                    Solve.recurse_default_branch(problem, blockIndex, coord);
-                    Solve.recurse_default_branch(problem, blockIndex, coord);
-                    Solve.recurse_default_branch(problem, blockIndex, coord);
-                }
-
             }
         }
-        
     }
 
     public static void recurse_default_branch(Problem problem, int blockIndex, Coordinate coord) {
