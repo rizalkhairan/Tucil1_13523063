@@ -31,6 +31,14 @@ public class Block {
                 }
             }
         }
+
+        // Centering the first coordinate into the origin
+        int dx = -this.shape[0].x;
+        int dy = -this.shape[0].y;
+        for (int i=0;i<this.shape.length;i++) {
+            this.shape[i].x += dx;
+            this.shape[i].y += dy;
+        }
     }
 
     public void print_shape() {
