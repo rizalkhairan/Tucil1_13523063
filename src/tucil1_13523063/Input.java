@@ -9,18 +9,16 @@ public class Input {
     static String inputPath = "input/";
 
     public static Problem read_file() {
-        Scanner input;
+        Scanner input, filename;
         File file;
 
+        System.out.print("Enter the file name with extension : ");
+        filename = new Scanner(System.in);
         try {
-            System.out.print("Enter the file name with extension : ");
-            input = new Scanner(System.in);
-
-            file = new File(inputPath + input.nextLine());
+            file = new File(inputPath + filename.nextLine());
             input = new Scanner(file);
-
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("File failed to load");
             return null;
         }
 
@@ -29,16 +27,27 @@ public class Input {
 
         List<Block> blocks = new ArrayList<Block>();
         List<String> shape = new ArrayList<String>();
-        char current = '_';
+        char current = '@';
         while (input.hasNextLine()) {
             String line = input.nextLine();
-            if (line.charAt(0) != current && current != '_') {
-                Block block = new Block(current, shape);
-                blocks.add(block);
-                shape.clear();
+            if (current == '@') {
+                for (int i=0;i<line.length();i++) {
+                    if (line.charAt(i) != ' ') {
+                        current = line.charAt(i);
+                        break;
+                    }
+                }
             }
-
-            current = line.charAt(0);
+            // Check if line has new character
+            for (int i=0;i<line.length();i++) {
+                if (line.charAt(i) != current && line.charAt(i) != ' ') {
+                    Block block = new Block(current, shape);
+                    blocks.add(block);
+                    shape.clear();
+                    current = line.charAt(i);
+                    break;
+                }
+            }
             shape.add(line);
         }
         Block block = new Block(current, shape);

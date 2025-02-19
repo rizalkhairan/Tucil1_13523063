@@ -183,7 +183,7 @@ public class Problem {
     public void display_board() {
 
         for (int i=0;i<this.height;i++) {
-            for (int j=0;j<this.height;j++) {
+            for (int j=0;j<this.width;j++) {
                 System.out.print(this.board[i][j]);
             }
             System.out.println();
