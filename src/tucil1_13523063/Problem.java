@@ -65,9 +65,19 @@ public class Problem {
     }
 
     public int set_blocks(List<Block> blocks) {
-        // Check if all blocks has different shapes here
-        
-        // Check if all blocks has diffent characters here
+        // Check if all blocks are inputted
+        if (blocks.size() != this.p) {
+            return -1;
+        }
+
+        // Check if all blocks has different characters here
+        for (int i = 0; i < blocks.size(); i++) {
+            for (int j = i + 1; j < blocks.size(); j++) {
+                if (blocks.get(i).name == blocks.get(j).name) {
+                    return -1;
+                }
+            }
+        }
         
         
         // Valid blocks
@@ -75,6 +85,16 @@ public class Problem {
         for (int i=0;i<blocks.size();i++) {
             this.blocks[i] = blocks.get(i);
         }
+
+        // Count the space of all blocks
+        int total_space = 0;
+        for (int i=0;i<blocks.size();i++) {
+            total_space += this.blocks[i].shape.length;
+        }
+        if (total_space != this.empty_space) {
+            return 1;  // Guaranteed to not have solution
+        }
+
         return 0;
 
     }

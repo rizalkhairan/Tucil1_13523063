@@ -43,13 +43,15 @@ public class Output {
     }
 
     public static void display_solution(Problem problem, long timeElapsed) {
-        if (problem.isSolved) {
-            System.out.println("Solusi ditemukan!");
+        if (problem.solved()) {
+            System.out.println("\nSolusi ditemukan!");
             Output.display_board(problem);
             System.out.println("\nWaktu pencarian: " + timeElapsed + " ms");
             System.out.println("\nJumlah kasus yang ditinjau: " + problem.case_tested);
         } else {
-            System.out.println("No solution found.");
+            System.out.println("\nTidak ada solusi yang ditemukan");
+            System.out.println("\nWaktu pencarian: " + timeElapsed + " ms");
+            System.out.println("\nJumlah kasus yang ditinjau: " + problem.case_tested);
         }
     }
 }
