@@ -1,0 +1,7 @@
+AAAC
+ABAB
+ABAB
+DBBB
+
+Solve time: 0 ms
+Cases examined: 4

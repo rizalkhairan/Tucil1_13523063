@@ -1,5 +1,8 @@
-AABDD
-ACBBD
-ECCFF
+AABBG
+CADBG
+CCDDG
+EEEFF
 EEFFF
-EEGGG
+
+Solve time: 2 ms
+Cases examined: 7

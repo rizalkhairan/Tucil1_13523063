@@ -53,21 +53,22 @@ public class Output {
             System.out.println("\nWaktu pencarian: " + timeElapsed + " ms");
             System.out.println("\nJumlah kasus yang ditinjau: " + problem.caseTested);
 
-            System.out.print("Apakah anda ingin menyimpan solusi? [Y/N] ");
-            Scanner input = new Scanner(System.in);
-            String save = input.nextLine();
-
-            if (save.equals("Y") || save.equals("y")) {
-                Output.save_solution(problem);
-            }
         } else {
             System.out.println("\nTidak ada solusi yang ditemukan");
             System.out.println("\nWaktu pencarian: " + timeElapsed + " ms");
             System.out.println("\nJumlah kasus yang ditinjau: " + problem.caseTested);
         }
+
+        System.out.print("Apakah anda ingin menyimpan solusi? [Y/N] ");
+        Scanner input = new Scanner(System.in);
+        String save = input.nextLine();
+    
+        if (save.equals("Y") || save.equals("y")) {
+            Output.save_solution(problem, timeElapsed);
+        }
     }
 
-    public static void save_solution(Problem problem) {
+    public static void save_solution(Problem problem, long timeElapsed) {
         System.out.print("Masukkan nama file: ");
         Scanner input = new Scanner(System.in);
         String filename = input.nextLine();
@@ -76,18 +77,38 @@ public class Output {
             File file = new File(Output.outputPath + filename);
             FileWriter writer = new FileWriter(file);
 
-            for (int y = 0; y < problem.board.length; y++) {
-                for (int x = 0; x < problem.board[y].length; x++) {
-                    writer.write(problem.board[y][x]);
+            if (problem.solved()) {
+                for (int y = 0; y < problem.board.length; y++) {
+                    for (int x = 0; x < problem.board[y].length; x++) {
+                        writer.write(problem.board[y][x]);
+                    }
+                    writer.write("\n");
                 }
-                writer.write("\n");
+            } else {
+                writer.write("Tidak ada solusi yang ditemukan\n");
             }
+
+            writer.write("\nSolve time: " + timeElapsed + " ms");
+            writer.write("\nCases examined: " + problem.caseTested);
 
             writer.close();
             System.out.println("Solusi berhasil disimpan!");
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("Gagal menyimpan solusi");
+        }
+    }
+
+    public static void display_problem(Problem problem) {
+        System.out.println("\nThe state of the problem:");
+        problem.display_board();
+        System.out.println("Empty space: " + problem.emptySpace);
+        System.out.println("Blocks available: " + problem.blocksAvailable);
+        System.out.println();
+        for (int i=0;i<problem.blocksAvailable;i++) {
+            System.out.println("Block " + problem.blocks[i].name + ":");
+            problem.blocks[i].print_shape();
+            System.out.println();
         }
     }
 }

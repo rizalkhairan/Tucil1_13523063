@@ -1,0 +1,7 @@
+AAAC
+ABAC
+AAAC
+DDDD
+
+Solve time: 1 ms
+Cases examined: 4

@@ -1,0 +1,4 @@
+Tidak ada solusi yang ditemukan
+
+Solve time: 77 ms
+Cases examined: 1089864
