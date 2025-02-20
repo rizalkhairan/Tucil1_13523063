@@ -41,7 +41,7 @@ public class Output {
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[i].length(); j++) {
                 char c = board[i].charAt(j);
-                if (c == Board.blank) {
+                if (c == Board.invalid) {
                     System.out.print(" ");
                 } else {
                     print_char(c, blockColorMap.get(c));

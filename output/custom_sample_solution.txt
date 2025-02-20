@@ -1,0 +1,8 @@
+...A...
+.AAABB.
+CCCCBBB
+.CDEEE.
+...E...
+
+Solve time: 0 ms
+Cases examined: 211
