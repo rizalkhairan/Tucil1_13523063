@@ -44,10 +44,10 @@ public class Solve {
     }
 
     public static void recurse_2D_branch(Problem problem, int blockIndex, Coordinate coord) {
+        problem.caseTested++;
         if (!problem.solved()) {
             if (problem.placeable_block(blockIndex, coord)) {
                 problem.place_block(blockIndex, coord);
-                problem.caseTested++;
     
                 recurse_2D(problem, blockIndex+1);
     
