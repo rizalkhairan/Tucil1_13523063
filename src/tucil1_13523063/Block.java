@@ -26,7 +26,7 @@ public class Block {
         for (int i=0;i<input.size();i++) {
             for (int j=0;j<input.get(i).length();j++) {
                 if (input.get(i).charAt(j) == name) {
-                    this.shape[count] = new Coordinate(j, -i);
+                    this.shape[count] = new Coordinate(j, -i, 0);
                     count++;
                 }
             }
@@ -38,6 +38,12 @@ public class Block {
         for (int i=0;i<this.shape.length;i++) {
             this.shape[i].x += dx;
             this.shape[i].y += dy;
+        }
+    }
+
+    public void print_path() {
+        for (int i=0;i<this.shape.length;i++) {
+            System.out.println(this.shape[i].x + " " + this.shape[i].y + " " + this.shape[i].level);
         }
     }
 
@@ -92,6 +98,27 @@ public class Block {
         for (int i=0;i<this.shape.length;i++) {
             for (int j=0;j<times;j++) {
                 this.shape[i].rotate_90_cw();
+            }
+        }
+    }
+
+    public void raise() {
+        for (int i=0;i<this.shape.length;i++) {
+            this.shape[i].raise();
+        }
+    }
+
+    public void flatten() {
+        for (int i=0;i<this.shape.length;i++) {
+            this.shape[i].flatten();
+        }
+    }
+
+    public void skew_90_ccw_ij(int n) {
+        int times = n % 4;
+        for (int i=0;i<this.shape.length;i++) {
+            for (int j=0;j<times;j++) {
+                this.shape[i].skew_90_ccw_ij();
             }
         }
     }

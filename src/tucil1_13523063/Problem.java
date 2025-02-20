@@ -3,7 +3,7 @@ package tucil1_13523063;
 import java.util.List;
 
 public class Problem {
-    public static final String[] modes = {"DEFAULT", "CUSTOM"};
+    public static final String[] modes = {"DEFAULT", "CUSTOM", "PYRAMID"};
 
     int width, height, blocksAvailable;
     String mode;
