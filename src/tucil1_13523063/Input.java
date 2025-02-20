@@ -25,6 +25,22 @@ public class Input {
         String[] first_line_split = input.nextLine().split(" ");
         String second_line = input.nextLine();
 
+        List<String> board_input = new ArrayList<String>();
+        char[][] customBoard = null;
+        if (second_line.equals("CUSTOM")) {
+            for (int i=0;i<Integer.parseInt(first_line_split[0]);i++) {
+                board_input.add(input.nextLine());
+            }
+
+            customBoard = new char[board_input.size()][board_input.get(0).length()];
+            for (int i=0;i<board_input.size();i++) {
+                for (int j=0;j<board_input.get(i).length();j++) {
+                    customBoard[i][j] = board_input.get(i).charAt(j);
+                }
+            }
+        }
+        board_input.clear();
+
         List<Block> blocks = new ArrayList<Block>();
         List<String> shape = new ArrayList<String>();
         char current = '@';
@@ -76,7 +92,7 @@ public class Input {
             return null;
         }
 
-        validity = problem.set_board(null);
+        validity = problem.set_board(customBoard);
         if (validity != 0) {
             System.out.println("Invalid board");
             return null;
