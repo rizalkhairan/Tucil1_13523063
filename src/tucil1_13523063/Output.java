@@ -37,10 +37,15 @@ public class Output {
             blockColorMap.put(problem.blocks[i].name, i % RAINBOW_COLORS.length);
         }
         
-        for (int y = 0; y < problem.board.length; y++) {
-            for (int x = 0; x < problem.board[y].length; x++) {
-                char c = problem.board[y][x];
-                print_char(c, blockColorMap.getOrDefault(c, -1));
+        String[] board = problem.board.get_board();
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board[i].length(); j++) {
+                char c = board[i].charAt(j);
+                if (c == Board.blank) {
+                    System.out.print(" ");
+                } else {
+                    print_char(c, blockColorMap.get(c));
+                }
             }
             System.out.println();
         }
@@ -78,11 +83,9 @@ public class Output {
             FileWriter writer = new FileWriter(file);
 
             if (problem.solved()) {
-                for (int y = 0; y < problem.board.length; y++) {
-                    for (int x = 0; x < problem.board[y].length; x++) {
-                        writer.write(problem.board[y][x]);
-                    }
-                    writer.write("\n");
+                String[] board = problem.board.get_board();
+                for (int i = 0; i < board.length; i++) {
+                    writer.write(board[i] + "\n");
                 }
             } else {
                 writer.write("Tidak ada solusi yang ditemukan\n");
@@ -102,7 +105,7 @@ public class Output {
     public static void display_problem(Problem problem) {
         System.out.println("\nThe state of the problem:");
         problem.display_board();
-        System.out.println("Empty space: " + problem.emptySpace);
+        System.out.println("Empty space: " + problem.board.get_empty_space());
         System.out.println("Blocks available: " + problem.blocksAvailable);
         System.out.println();
         for (int i=0;i<problem.blocksAvailable;i++) {

@@ -111,4 +111,15 @@ public class Board {
             System.out.println();
         }
     }
+
+    public String[] get_board() {
+        String[] board = new String[this.height];
+        for (int i=0;i<this.height;i++) {
+            board[i] = "";
+            for (int j=0;j<this.width;j++) {
+                board[i] += this.rectangularBoard[i][j];
+            }
+        }
+        return board;
+    }
 }

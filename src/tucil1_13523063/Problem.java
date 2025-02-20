@@ -95,6 +95,10 @@ public class Problem {
     }
 
     /*  Board modification for solving */
+    public Coordinate[] get_possible_coordinates() {
+        return this.board.get_possible_coordinates();
+    }
+
     public boolean placeable_block(int block_index, Coordinate coordinate) {
         // If block already used
         if (this.usedBlock[block_index]) {

@@ -20,9 +20,10 @@ public class Solve {
         }
 
         Block currentBlock = problem.blocks[blockIndex];
+        Coordinate[] possibleCoordinates = problem.get_possible_coordinates();
         // Place block on each possible position
-        for (int i=0;i<problem.possibleCoordinates.length;i++) {
-            Coordinate coord = problem.possibleCoordinates[i];
+        for (int i=0;i<possibleCoordinates.length;i++) {
+            Coordinate coord = possibleCoordinates[i];
             
             // recurse_default_branch place the block, recurse, remove, then rotate the block
             // recurse_default_branch does not do anything if the problem is solved                
