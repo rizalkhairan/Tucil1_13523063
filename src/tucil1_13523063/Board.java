@@ -14,6 +14,8 @@ public class Board {
 
     public Board(String mode, char[][] customBoard, int width, int height) {
         if (mode.equals("DEFAULT")) {
+            this.width = width;
+            this.height = height;
             this.rectangularBoard = new char[height][width];
             for (int i=0;i<height;i++) {
                 for (int j=0;j<width;j++) {
@@ -32,22 +34,28 @@ public class Board {
 
             this.validBoard = true;
         } else if (mode.equals("CUSTOM")) {
-            this.rectangularBoard = customBoard;
-
+            this.width = width;
+            this.height = height;
+            this.rectangularBoard = new char[height][width];
             this.emptySpace = 0;
             for (int i=0;i<height;i++) {
                 for (int j=0;j<width;j++) {
-                    if (this.rectangularBoard[i][j] == Board.inputBlank) {
+                    if (customBoard[i][j] == Board.inputBlank) {
+                        this.rectangularBoard[i][j] = Board.blank;
                         this.emptySpace++;
+                    } else if (customBoard[i][j] == Board.invalid) {
+                        this.rectangularBoard[i][j] = Board.invalid;
                     }
                 }
             }
 
             this.possibleCoordinates = new Coordinate[this.emptySpace];
+            int count = 0;
             for (int i=0;i<height;i++) {
                 for (int j=0;j<width;j++) {
-                    if (this.rectangularBoard[i][j] == Board.inputBlank) {
-                        this.possibleCoordinates[i*width+j] = new Coordinate(j, i);
+                    if (this.rectangularBoard[i][j] == Board.blank) {
+                        this.possibleCoordinates[count] = new Coordinate(j, i);
+                        count++;
                     }
                 }
             }

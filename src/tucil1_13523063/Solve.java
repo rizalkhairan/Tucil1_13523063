@@ -2,9 +2,7 @@ package tucil1_13523063;
 
 public class Solve {
     public static Problem solve(Problem problem) {
-        if (problem.mode.equals("DEFAULT")) {
-            problem.set_board(null);    // Empty board
-
+        if (problem.mode.equals("DEFAULT") || problem.mode.equals("CUSTOM")) {
             Solve.recurse_default(problem, 0);
         } else {
             System.out.println("Invalid board");
