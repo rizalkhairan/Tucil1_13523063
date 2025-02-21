@@ -16,15 +16,15 @@ public class Coordinate {
 
     public Coordinate add(Coordinate coord) {
         Coordinate res = new Coordinate(this.x, this.y, this.level);
+        res.level += coord.level;
         if (coord.level == 0) {
             res.x += coord.x;
             res.y += coord.y;
         } else {
-            res.level += coord.level;
-            if (coord.x * coord.y < 0) {
+            if (coord.x < 0) {
                 res.x += coord.x;
-            } else if (coord.x < 0) {
-                res.x += coord.x;
+            }
+            if (coord.y < 0) {
                 res.y += coord.y;
             }
         }
