@@ -14,6 +14,28 @@ public class Coordinate {
         }
     }
 
+    public Coordinate add(Coordinate coord) {
+        Coordinate res = new Coordinate(this.x, this.y, this.level);
+        if (coord.level == 0) {
+            res.x += coord.x;
+            res.y += coord.y;
+        } else {
+            res.level += coord.level;
+            if (coord.x * coord.y < 0) {
+                res.x += coord.x;
+            } else if (coord.x < 0) {
+                res.x += coord.x;
+                res.y += coord.y;
+            }
+        }
+
+        return res;
+    }
+
+    public void print_coord() {
+        System.out.println(this.x + ", " + this.y + ", " + this.level);
+    }
+
     /* Transformation */
     // These transformations are affine/does not transform the origin
 
