@@ -12,6 +12,7 @@ public class Problem {
     
     Block[] blocks;
     boolean[] usedBlock;
+    Coordinate[] blockPositions;
     
     boolean isSolved;
     int caseTested;
@@ -77,8 +78,10 @@ public class Problem {
             this.blocks[i] = blocks.get(i);
         }
         this.usedBlock = new boolean[this.blocksAvailable];
+        this.blockPositions = new Coordinate[this.blocksAvailable];
         for (int i=0;i<this.blocksAvailable;i++) {
             this.usedBlock[i] = false;
+            this.blockPositions[i] = null;
         }
         
         // Count the space of all blocks
@@ -113,6 +116,7 @@ public class Problem {
     public void place_block(int block_index, Coordinate coordinate) {
         Block block = this.blocks[block_index];
         this.usedBlock[block_index] = true;
+        this.blockPositions[block_index] = coordinate;
         this.board.place_block(block, coordinate);
     }
 
@@ -120,6 +124,7 @@ public class Problem {
     public void remove_block(int block_index, Coordinate coordinate) {
         Block block = this.blocks[block_index];
         this.usedBlock[block_index] = false;
+        this.blockPositions[block_index] = null;
         this.board.remove_block(block, coordinate);
     }
 
