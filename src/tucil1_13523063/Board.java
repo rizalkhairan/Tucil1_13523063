@@ -14,6 +14,7 @@ public class Board {
     Coordinate[] possibleCoordinates;
 
     public Board(String mode, char[][] customBoard, int width, int height) {
+        this.validBoard = true;
         if (mode.equals("DEFAULT")) {
             this.width = width;
             this.height = height;
@@ -33,7 +34,6 @@ public class Board {
                 }
             }
 
-            this.validBoard = true;
         } else if (mode.equals("CUSTOM")) {
             this.width = width;
             this.height = height;
@@ -60,8 +60,6 @@ public class Board {
                     }
                 }
             }
-
-            this.validBoard = true;
         } else if (mode.equals("PYRAMID")) {
             this.width = width;
             this.height = height;
@@ -93,8 +91,6 @@ public class Board {
                     }
                 }
             }
-
-            this.validBoard = true;
         } else {
             this.validBoard = false;
         }
@@ -108,104 +104,62 @@ public class Board {
     public Coordinate[] get_possible_coordinates() {
         return this.possibleCoordinates;
     }
+    public char get_elem(Coordinate coord) {
+        if (this.altitude != 0) {
+            return this.pyramidBoard[coord.level][coord.y][coord.x];
+        } else {
+            return this.rectangularBoard[coord.y][coord.x];
+        }
+    }
+    public void set_elem(Coordinate coord, char c) {
+        if (this.altitude != 0) {
+            this.pyramidBoard[coord.level][coord.y][coord.x] = c;
+        } else {
+            this.rectangularBoard[coord.y][coord.x] = c;
+        }
+    }
 
     /* Coordinate calc */
     public Coordinate add_coordinate(Coordinate origin, Coordinate add) {
-        Coordinate res = new Coordinate(origin.x, origin.y, origin.level);
-        if (add.level == 0) {
-            res.x += add.x;
-            res.y += add.y;
-        } else {
-            res.level += add.level;
-            if (add.x * add.y < 0) {
-                res.x += add.x;
-            }
-        }
-
-        return res;
+        return origin.add(add);
     }
 
 
     /* Board modification */
     public boolean placeable_block(Block block, Coordinate coord) {
-        if (this.altitude != 0) {
-            for (int i=0;i<block.shape.length;i++) {
-                Coordinate res = this.add_coordinate(coord, block.shape[i]);
-                int x = res.x;
-                int y = res.y;
-                int z = res.level;
-
-                if (z < 0 || z >= this.altitude || x < 0 || x >= this.width-z || y < 0 || y >= this.height-z) {
-                    return false;
-                }
-                if (this.pyramidBoard[z][y][x] != Board.blank) {
-                    return false;
-                }
+        for (int i=0;i<block.shape.length;i++) {
+            Coordinate res = this.add_coordinate(coord, block.shape[i]);
+            int x = res.x;
+            int y = res.y;
+            int z = res.level;
+            
+            if (x<0 || x>=this.width-z || y<0 || y>=this.height-z) {
+                return false;
             }
-
-            return true;
-        } else {
-            for (int i=0;i<block.shape.length;i++) {
-                Coordinate res = this.add_coordinate(coord, block.shape[i]);
-                int x = res.x;
-                int y = res.y;
-
-                if (x < 0 || x >= this.width || y < 0 || y >= this.height) {
-                    return false;
-                }
-                if (this.rectangularBoard[y][x] != Board.blank) {
-                    // In custom board, an invalid position is either occupied or out of bound
-                    return false;
-                }
+            if (this.altitude!=0 && (z<0 || z>=this.altitude)) {
+                return false;
             }
-            return true;
+            if (this.get_elem(res) != Board.blank) {
+                return false;
+            }
         }
+
+        return true;
     }
 
     public void place_block(Block block, Coordinate coord) {
-        char c = block.name;
-        if (altitude != 0) {
-            for (int i=0;i<block.shape.length;i++) {
-                Coordinate res = this.add_coordinate(coord, block.shape[i]);
-                int x = res.x;
-                int y = res.y;
-                int z = res.level;
-
-                this.pyramidBoard[z][y][x] = c;
-                this.emptySpace--;
-            }
-        } else {
-            for (int i=0;i<block.shape.length;i++) {
-                Coordinate res = this.add_coordinate(coord, block.shape[i]);
-                int x = res.x;
-                int y = res.y;
-
-                this.rectangularBoard[y][x] = c;
-                this.emptySpace--;
-            }
+        for (int i=0;i<block.shape.length;i++) {
+            Coordinate res = this.add_coordinate(coord, block.shape[i]);
+            this.set_elem(res, block.name);
+            this.emptySpace--;
         }
     }
 
     public void remove_block(Block block, Coordinate coord) {
-        if (this.altitude != 0) {
-            for (int i=0;i<block.shape.length;i++) {
-                Coordinate res = this.add_coordinate(coord, block.shape[i]);
-                int x = res.x;
-                int y = res.y;
-                int z = res.level;
-
-                this.pyramidBoard[z][y][x] = Board.blank;
-                this.emptySpace++;
-            }
-        } else {
-            for (int i=0;i<block.shape.length;i++) {
-                Coordinate res = this.add_coordinate(coord, block.shape[i]);
-                int x = res.x;
-                int y = res.y;
-
-                this.rectangularBoard[y][x] = Board.blank;
-                this.emptySpace++;
-            }
+        for (int i=0;i<block.shape.length;i++) {
+            Coordinate res = this.add_coordinate(coord, block.shape[i]);
+            this.set_elem(res, blank);
+            this.emptySpace++;
         }
     }
 
