@@ -2,7 +2,7 @@ package tucil1_13523063;
 
 public class Coordinate {
     // Origin at (0, 0)
-    int x, y, level;
+    public int x, y, level;
 
     public Coordinate(int x, int y, int level) {
         this.x = x;
@@ -20,11 +20,18 @@ public class Coordinate {
         if (coord.level == 0) {
             res.x += coord.x;
             res.y += coord.y;
-        } else {
+        } else if (coord.level > 0){
             if (coord.x < 0) {
                 res.x += coord.x;
             }
             if (coord.y < 0) {
+                res.y += coord.y;
+            }
+        } else {
+            if (coord.x > 0) {
+                res.x += coord.x;
+            }
+            if (coord.y > 0) {
                 res.y += coord.y;
             }
         }
@@ -69,41 +76,37 @@ public class Coordinate {
 
     // Skew around the axis of i-j
     public void skew_90_ccw_ij() {
-        // Flat object is not skewed
-        if (level > 0) {
-            if (this.x > 0 && this.y > 0) {
-                this.x = -this.x;
-                this.y = -this.y;
-            } else if (this.x < 0 && this.y < 0) {
-                this.level = -this.level;
-            } else if (this.x * this.y < 0) {
-                this.level = 0;
-                if (this.x < 0) {
-                    this.y = 0;
-                } else {
-                    this.x = 0;
-                }
+        if (this.x == this.y && this.x == this.level) {
+            // Point that is on the line that incide i+j+k
+            int temp = this.x;
+            this.x = -this.level;
+            this.y = -this.level;
+            this.level = temp;
+        } else if (this.x == this.y) {
+            // Point on the plane whose normal is parallel to i-j
+            int diff = this.level - this.x;
+            Coordinate temp = new Coordinate(this.x, this.y, this.x);
+            temp.skew_90_ccw_ij();
+            this.x = -diff;
+            this.y = -diff;
+            this.level = diff;
+            this.add(temp);
+        } else {
+            // Point on other parts of the space
+            Coordinate temp;
+            if (this.y < this.x) {
+                temp = new Coordinate(this.x, this.x, this.level);
+                temp.rotate_90_cw();
+                this.y = this.x - this.y;
+                this.x = 0;
+            } else {
+                temp = new Coordinate(this.y, this.y, this.level);
+                temp.rotate_90_cw();
+                this.x = this.y - this.x;
+                this.y = 0;
             }
-        } else if (level < 0) {
-            if (this.x > 0 && this.y > 0) {
-                this.level = -this.level;
-            } else if (this.x < 0 && this.y < 0) {
-                this.x = -this.x;
-                this.y = -this.y;
-            } else if (this.x * this.y < 0) {
-                this.level = 0;
-                if (this.x < 0) {
-                    this.x = 0;
-                } else {
-                    this.y = 0;
-                }
-            }
-        } else if (level == 0) {
-            int tempX = this.x;
-            int tempY = this.y;
-            this.level = tempX + tempY;
-            this.x = tempX - tempY;
-            this.y = -(tempX - tempY);
+            this.level = 0;
+            this.add(temp);
         }
     }
 }
