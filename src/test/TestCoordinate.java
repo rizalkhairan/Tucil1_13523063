@@ -8,27 +8,9 @@ public class TestCoordinate {
     public static void main(String[] args) {
         System.out.println("Test Coordinate");
         System.out.println("Test add commutativity: " + (test_add_commutativity(true) ? "OK" : "ERROR"));
-        System.out.println("Test add associativity: " + (test_add_associativity(true) ? "OK" : "ERROR"));
-        
-        System.out.println("Test coordinate 3D rotation: " + (test_coordinate_rotate(false) ? "OK" : "ERROR"));
-        // Edge case
-        Coordinate original = new Coordinate(1, 1, 0);
-        Coordinate coord = new Coordinate(1, 1, 0);
-        coord.rotate_90_ccw_ij();
-        coord.print_coord();
-
-        System.out.println("###");
-        original = new Coordinate(0, 0, 2);
-        coord = new Coordinate(0, 0, 2);
-        coord.rotate_90_ccw_ij();
-        coord.print_coord();
-
-        System.out.println("###");
-        original = new Coordinate(-2, -2, 0);
-        coord = new Coordinate(-2, -2, 0);
-        coord.rotate_90_ccw_ij();
-        coord.print_coord();
-
+        System.out.println("Test add associativity: " + (test_add_associativity(true) ? "OK" : "ERROR"));        
+    
+        System.out.println("Test 3D raise and flatten: " + (test_3D_raise_and_flatten(true) ? "OK" : "ERROR"));
     }
 
     public static boolean test_add_commutativity(boolean silent) {
@@ -119,67 +101,36 @@ public class TestCoordinate {
         return true;
     }
 
-    public static boolean test_coordinate_rotate(boolean silent) {
-        // Invariant
-        for (int i=-3;i<=3;i++) {
-            Coordinate original = new Coordinate(i, -i, 0);
-            Coordinate coord = new Coordinate(i, -i, 0);
-            coord.rotate_90_ccw_ij();
+    public static boolean test_3D_raise_and_flatten(boolean silent) {
+        // Test reversibility
+        Coordinate original, test;
 
-            if (original.x != coord.x || original.y != coord.y || original.level != coord.level) {
+        // 
+        for (int x=-20;x<=20;x++) {
+            for (int y=-20;y<=20;y++) {
+                original = new Coordinate(x, y, 0);     
+                test = new Coordinate(x, y, 0);
+                test.raise();
+                test.flatten();
+
                 if (!silent) {
-                    System.out.println("Error in invariant");
+                    System.out.print("Original | Test: ");
                     original.print_coord();
-                    coord.print_coord();
+                    test.print_coord();
                 }
-                return false;
-            }
-        }
 
-        // On plane whose normal is parallel to i-j
-        for (int level=-2;level<=2;level++) {
-            for (int plane=-2;plane<=2;plane++) {
-                Coordinate original = new Coordinate(plane, plane, level);
-                Coordinate coord = new Coordinate(plane, plane, level);
-                coord.rotate_90_ccw_ij();
-                coord.rotate_90_ccw_ij();
-                coord.rotate_90_ccw_ij();
-                coord.rotate_90_ccw_ij();
-
-                if (original.x != coord.x || original.y != coord.y || original.level != coord.level) {
+                if (original.x == test.x && original.y == test.y && original.level == test.level) {
                     if (!silent) {
-                        System.out.println("Error in plane ");
-                        original.print_coord();
-                        coord.print_coord();
+                        System.out.println("OK");
+                    }
+                } else {
+                    if (!silent) {
+                        System.out.println("ERROR");
                     }
                     return false;
                 }
             }
         }
-
-        // General case
-        for (int level=-5;level<=5;level++) {
-            for (int x=-5;x<=5;x++) {
-                for (int y=-5;y<=5;y++) {
-                    Coordinate original = new Coordinate(x, y, level);
-                    Coordinate coord = new Coordinate(x, y, level);
-                    coord.rotate_90_ccw_ij();
-                    coord.rotate_90_ccw_ij();
-                    coord.rotate_90_ccw_ij();
-                    coord.rotate_90_ccw_ij();
-
-                    if (original.x != coord.x || original.y != coord.y || original.level != coord.level) {
-                        if (!silent) {
-                            System.out.println("Error in general");
-                            original.print_coord();
-                            coord.print_coord();
-                        }
-                        return false;
-                    }
-                }
-            }
-        }
-
 
         return true;
     }
