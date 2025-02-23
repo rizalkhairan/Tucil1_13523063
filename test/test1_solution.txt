@@ -1,8 +1,0 @@
-AEBB
-AABB
-ACBD
-ACDD
-ACFF
-
-Solve time: 0 ms
-Cases examined: 344

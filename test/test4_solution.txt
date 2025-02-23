@@ -1,7 +1,0 @@
-AAAC
-ABAC
-AAAC
-DDDD
-
-Solve time: 0 ms
-Cases examined: 169

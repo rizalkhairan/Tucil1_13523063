@@ -1,8 +1,0 @@
-AABBG
-CADBG
-CCDDG
-EEEFF
-EEFFF
-
-Solve time: 1 ms
-Cases examined: 488

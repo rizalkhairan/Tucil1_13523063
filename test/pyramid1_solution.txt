@@ -1,6 +1,0 @@
-A
-AB
-BB
-
-Solve time: 0 ms
-Cases examined: 381

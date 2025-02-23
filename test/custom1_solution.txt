@@ -1,9 +1,0 @@
-.A..B.
-GAFBBB
-GA..BC
-EE..CC
-EEDDDD
-.E..D.
-
-Solve time: 0 ms
-Cases examined: 32030

@@ -1,9 +1,0 @@
-D
-ED
-EE
-AAD
-BAF
-BCC
-
-Solve time: 1 ms
-Cases examined: 475

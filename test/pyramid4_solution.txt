@@ -1,4 +1,0 @@
-Tidak ada solusi yang ditemukan
-
-Solve time: 1340 ms
-Cases examined: 99245280

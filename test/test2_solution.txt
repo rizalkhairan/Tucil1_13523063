@@ -1,6 +1,0 @@
-AAA
-BBB
-CCC
-
-Solve time: 0 ms
-Cases examined: 75
