@@ -106,41 +106,23 @@ public class Solve {
                 currentBlock.reflect_i();
                 currentBlock.raise();
 
-                // Normal vector is i-j
-                Solve.recurse_3D_branch(problem, blockIndex, coord, 1);
-                Solve.recurse_3D_branch(problem, blockIndex, coord, 1);
-                Solve.recurse_3D_branch(problem, blockIndex, coord, 1);
-                Solve.recurse_3D_branch(problem, blockIndex, coord, 1);
+                // Not flipped. All rotations about the vertical
+                Solve.recurse_3D_branch(problem, blockIndex, coord, 0);
+                Solve.recurse_3D_branch(problem, blockIndex, coord, 0);
+                Solve.recurse_3D_branch(problem, blockIndex, coord, 0);
+                Solve.recurse_3D_branch(problem, blockIndex, coord, 0);
 
-                // Normal vector is -i-j
+                // Vertically flipped. All rotations about the vertical
                 if (!problem.solved()) {
-                    currentBlock.rotate_90_cw_k(1);
-                    Solve.recurse_3D_branch(problem, blockIndex, coord, 1);
-                    Solve.recurse_3D_branch(problem, blockIndex, coord, 1);
-                    Solve.recurse_3D_branch(problem, blockIndex, coord, 1);
-                    Solve.recurse_3D_branch(problem, blockIndex, coord, 1);
-                }
-
-                // Normal vector is -i+j
-                if (!problem.solved()) {
-                    currentBlock.rotate_90_cw_k(1);
-                    Solve.recurse_3D_branch(problem, blockIndex, coord, 1);
-                    Solve.recurse_3D_branch(problem, blockIndex, coord, 1);
-                    Solve.recurse_3D_branch(problem, blockIndex, coord, 1);
-                    Solve.recurse_3D_branch(problem, blockIndex, coord, 1);
-                }
-
-                // Normal vector is i+j
-                if (!problem.solved()) {
-                    currentBlock.rotate_90_cw_k(1);
-                    Solve.recurse_3D_branch(problem, blockIndex, coord, 1);
-                    Solve.recurse_3D_branch(problem, blockIndex, coord, 1);
-                    Solve.recurse_3D_branch(problem, blockIndex, coord, 1);
-                    Solve.recurse_3D_branch(problem, blockIndex, coord, 1);
+                    currentBlock.reflect_k();
+                    Solve.recurse_3D_branch(problem, blockIndex, coord, 0);
+                    Solve.recurse_3D_branch(problem, blockIndex, coord, 0);
+                    Solve.recurse_3D_branch(problem, blockIndex, coord, 0);
+                    Solve.recurse_3D_branch(problem, blockIndex, coord, 0);
                 }
 
                 if (!problem.solved()) {
-                    currentBlock.rotate_90_cw_k(1);
+                    currentBlock.reflect_k();
                     currentBlock.flatten();
                 }
             }
@@ -166,8 +148,6 @@ public class Solve {
 
             if (transformMode == 0) {
                 problem.blocks[blockIndex].rotate_90_cw_k(1);
-            } else if (transformMode == 1) {
-                problem.blocks[blockIndex].rotate_90_ccw_ij(1);
             } else if (transformMode == 2) {
                 problem.blocks[blockIndex].reflect_i();
             }

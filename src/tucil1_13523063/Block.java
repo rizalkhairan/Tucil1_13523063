@@ -114,12 +114,9 @@ public class Block {
         }
     }
 
-    public void rotate_90_ccw_ij(int n) {
-        int times = n % 4;
+    public void reflect_k() {
         for (int i=0;i<this.shape.length;i++) {
-            for (int j=0;j<times;j++) {
-                this.shape[i].rotate_90_ccw_ij();
-            }
+            this.shape[i].reflect_k();
         }
     }
 }

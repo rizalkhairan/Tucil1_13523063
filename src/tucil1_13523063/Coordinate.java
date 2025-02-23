@@ -26,12 +26,20 @@ public class Coordinate {
             if (coord.y < 0) {
                 res.y += coord.y;
             }
+            if (coord.x == 0 && coord.y == 0) {
+                res.x -= coord.level / 2;
+                res.y -= coord.level / 2;
+            }
         } else {
             if (coord.x > 0) {
                 res.x += coord.x;
             }
             if (coord.y > 0) {
                 res.y += coord.y;
+            }
+            if (coord.x == 0 && coord.y == 0) {
+                res.x += coord.level / 2;
+                res.y += coord.level / 2;
             }
         }
 
@@ -52,13 +60,6 @@ public class Coordinate {
         this.x = -this.x;
     }
 
-    // Reflect along i-j
-    public void reflect_ij() {
-        // Define here
-
-        return;
-    }
-
     // Rotate about axis k
     public void rotate_90_cw_k() {
         int temp = this.x;
@@ -69,30 +70,30 @@ public class Coordinate {
     /* 3D transformations */
 
     // Raise flat block such that the normal is parallel to vector i-j
+    // Call flatten() to restore original position
     public void raise() {
-        // Define here
-
-        return;
+        this.rotate_90_cw_k();
+        this.rotate_90_cw_k();
+        this.rotate_90_cw_k();
+        int tempX = this.x;
+        int tempY = this.y;
+        this.level = tempX + tempY;   // Taxicab distance
+        this.x = tempX - tempY;
+        this.y = tempX - tempY;
     }
 
     // Flatten block whose normal is parallel with vector i-j. Inverse of raise
     public void flatten() {
-        // Define here
-
-        return;
+        int tempX = this.x;
+        this.x = (this.level + tempX) / 2;
+        this.y = (this.level - tempX) / 2;
+        this.level = 0;
+        this.rotate_90_cw_k();
     }
 
-    // Reflect along i+j+k
-    public void reflect_ijk() {
-        // Define here
-
-        return;
+    // Reflect along z-axis
+    public void reflect_k() {
+        this.level = -this.level;
     }
 
-    // Rotate about axis i-j
-    public void rotate_90_ccw_ij() {
-        // Define here
-
-        return;
-    }
 }
