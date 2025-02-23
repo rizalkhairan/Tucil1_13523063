@@ -1,0 +1,10 @@
+3 3 4
+PYRAMID
+AA
+AAA
+ AA
+BBB
+B
+B
+C
+D

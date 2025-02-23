@@ -3,5 +3,5 @@ ABAC
 AAAC
 DDDD
 
-Solve time: 1 ms
-Cases examined: 4
+Solve time: 0 ms
+Cases examined: 169

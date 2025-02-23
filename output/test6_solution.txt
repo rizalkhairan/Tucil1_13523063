@@ -1,7 +1,5 @@
-AAAC
-ABAB
-ABAB
-DBBB
+ABCDEFGHIJKLM
+NOPQRSTUVWXYZ
 
-Solve time: 0 ms
-Cases examined: 4
+Solve time: 1 ms
+Cases examined: 2626

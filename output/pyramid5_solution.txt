@@ -1,0 +1,9 @@
+B
+CB
+BD
+AAB
+AAA
+BAA
+
+Solve time: 0 ms
+Cases examined: 564

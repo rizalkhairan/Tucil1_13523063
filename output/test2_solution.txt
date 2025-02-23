@@ -3,4 +3,4 @@ BBB
 CCC
 
 Solve time: 0 ms
-Cases examined: 3
+Cases examined: 75

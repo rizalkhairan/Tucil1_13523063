@@ -26,7 +26,7 @@ public class Block {
         for (int i=0;i<input.size();i++) {
             for (int j=0;j<input.get(i).length();j++) {
                 if (input.get(i).charAt(j) == name) {
-                    this.shape[count] = new Coordinate(j, -i);
+                    this.shape[count] = new Coordinate(j, -i, 0);
                     count++;
                 }
             }
@@ -38,6 +38,12 @@ public class Block {
         for (int i=0;i<this.shape.length;i++) {
             this.shape[i].x += dx;
             this.shape[i].y += dy;
+        }
+    }
+
+    public void print_path() {
+        for (int i=0;i<this.shape.length;i++) {
+            System.out.println(this.shape[i].x + " " + this.shape[i].y + " " + this.shape[i].level);
         }
     }
 
@@ -80,19 +86,37 @@ public class Block {
     // All transformations preserve the origin
 
     // Coord.x = -Coord.x
-    public void reflect_horizontal() {
+    public void reflect_i() {
         for (int i=0;i<this.shape.length;i++) {
-            this.shape[i].reflect_horizontal();
+            this.shape[i].reflect_i();
         }
     }
 
     // Rotation about (0, 0) which is guaranteed to incide with the block
-    public void rotate_90_cw(int n) {
+    public void rotate_90_cw_k(int n) {
         int times = n % 4;
         for (int i=0;i<this.shape.length;i++) {
             for (int j=0;j<times;j++) {
-                this.shape[i].rotate_90_cw();
+                this.shape[i].rotate_90_cw_k();
             }
+        }
+    }
+
+    public void raise() {
+        for (int i=0;i<this.shape.length;i++) {
+            this.shape[i].raise();
+        }
+    }
+
+    public void flatten() {
+        for (int i=0;i<this.shape.length;i++) {
+            this.shape[i].flatten();
+        }
+    }
+
+    public void reflect_k() {
+        for (int i=0;i<this.shape.length;i++) {
+            this.shape[i].reflect_k();
         }
     }
 }

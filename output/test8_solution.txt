@@ -1,4 +1,4 @@
 Tidak ada solusi yang ditemukan
 
-Solve time: 3 ms
-Cases examined: 0
+Solve time: 0 ms
+Cases examined: 72

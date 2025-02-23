@@ -36,6 +36,7 @@ public class Output {
         for (int i = 0; i < problem.blocks.length; i++) {
             blockColorMap.put(problem.blocks[i].name, i % RAINBOW_COLORS.length);
         }
+        blockColorMap.put(Board.blank, 0);  // RED
         
         String[] board = problem.board.get_board();
         for (int i = 0; i < board.length; i++) {
@@ -43,7 +44,9 @@ public class Output {
                 char c = board[i].charAt(j);
                 if (c == Board.invalid) {
                     System.out.print(" ");
-                } else {
+                } else if (c == Board.blank) {
+                    print_char('█', blockColorMap.get(c));   // Should not happen
+                }else {
                     print_char(c, blockColorMap.get(c));
                 }
             }

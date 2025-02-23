@@ -5,4 +5,4 @@ ACDD
 ACFF
 
 Solve time: 0 ms
-Cases examined: 6
+Cases examined: 344
