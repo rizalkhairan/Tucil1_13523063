@@ -1,0 +1,16 @@
+4 4 7
+PYRAMID
+AAAA
+AAAA
+A AA
+A  
+BB
+BB
+CC
+C
+DD
+DD
+D
+EE
+FF
+GG

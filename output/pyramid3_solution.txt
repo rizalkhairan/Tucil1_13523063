@@ -1,0 +1,9 @@
+D
+CC
+CD
+AAA
+ABB
+ABD
+
+Solve time: 0 ms
+Cases examined: 357
