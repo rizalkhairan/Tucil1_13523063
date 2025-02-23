@@ -86,18 +86,18 @@ public class Block {
     // All transformations preserve the origin
 
     // Coord.x = -Coord.x
-    public void reflect_horizontal() {
+    public void reflect_i() {
         for (int i=0;i<this.shape.length;i++) {
-            this.shape[i].reflect_horizontal();
+            this.shape[i].reflect_i();
         }
     }
 
     // Rotation about (0, 0) which is guaranteed to incide with the block
-    public void rotate_90_cw(int n) {
+    public void rotate_90_cw_k(int n) {
         int times = n % 4;
         for (int i=0;i<this.shape.length;i++) {
             for (int j=0;j<times;j++) {
-                this.shape[i].rotate_90_cw();
+                this.shape[i].rotate_90_cw_k();
             }
         }
     }
@@ -114,11 +114,11 @@ public class Block {
         }
     }
 
-    public void skew_90_ccw_ij(int n) {
+    public void rotate_90_ccw_ij(int n) {
         int times = n % 4;
         for (int i=0;i<this.shape.length;i++) {
             for (int j=0;j<times;j++) {
-                this.shape[i].skew_90_ccw_ij();
+                this.shape[i].rotate_90_ccw_ij();
             }
         }
     }

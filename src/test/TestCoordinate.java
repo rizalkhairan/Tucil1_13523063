@@ -9,8 +9,26 @@ public class TestCoordinate {
         System.out.println("Test Coordinate");
         System.out.println("Test add commutativity: " + (test_add_commutativity(true) ? "OK" : "ERROR"));
         System.out.println("Test add associativity: " + (test_add_associativity(true) ? "OK" : "ERROR"));
-    
-        System.out.println("Test coordinate 3D rotation: " + (test_coordinate_skew(false) ? "OK" : "ERROR"));
+        
+        System.out.println("Test coordinate 3D rotation: " + (test_coordinate_rotate(false) ? "OK" : "ERROR"));
+        // Edge case
+        Coordinate original = new Coordinate(1, 1, 0);
+        Coordinate coord = new Coordinate(1, 1, 0);
+        coord.rotate_90_ccw_ij();
+        coord.print_coord();
+
+        System.out.println("###");
+        original = new Coordinate(0, 0, 2);
+        coord = new Coordinate(0, 0, 2);
+        coord.rotate_90_ccw_ij();
+        coord.print_coord();
+
+        System.out.println("###");
+        original = new Coordinate(-2, -2, 0);
+        coord = new Coordinate(-2, -2, 0);
+        coord.rotate_90_ccw_ij();
+        coord.print_coord();
+
     }
 
     public static boolean test_add_commutativity(boolean silent) {
@@ -101,12 +119,12 @@ public class TestCoordinate {
         return true;
     }
 
-    public static boolean test_coordinate_skew(boolean silent) {
+    public static boolean test_coordinate_rotate(boolean silent) {
         // Invariant
         for (int i=-3;i<=3;i++) {
             Coordinate original = new Coordinate(i, -i, 0);
             Coordinate coord = new Coordinate(i, -i, 0);
-            coord.skew_90_ccw_ij();
+            coord.rotate_90_ccw_ij();
 
             if (original.x != coord.x || original.y != coord.y || original.level != coord.level) {
                 if (!silent) {
@@ -123,10 +141,10 @@ public class TestCoordinate {
             for (int plane=-2;plane<=2;plane++) {
                 Coordinate original = new Coordinate(plane, plane, level);
                 Coordinate coord = new Coordinate(plane, plane, level);
-                coord.skew_90_ccw_ij();
-                coord.skew_90_ccw_ij();
-                coord.skew_90_ccw_ij();
-                coord.skew_90_ccw_ij();
+                coord.rotate_90_ccw_ij();
+                coord.rotate_90_ccw_ij();
+                coord.rotate_90_ccw_ij();
+                coord.rotate_90_ccw_ij();
 
                 if (original.x != coord.x || original.y != coord.y || original.level != coord.level) {
                     if (!silent) {
@@ -145,10 +163,10 @@ public class TestCoordinate {
                 for (int y=-5;y<=5;y++) {
                     Coordinate original = new Coordinate(x, y, level);
                     Coordinate coord = new Coordinate(x, y, level);
-                    coord.skew_90_ccw_ij();
-                    coord.skew_90_ccw_ij();
-                    coord.skew_90_ccw_ij();
-                    coord.skew_90_ccw_ij();
+                    coord.rotate_90_ccw_ij();
+                    coord.rotate_90_ccw_ij();
+                    coord.rotate_90_ccw_ij();
+                    coord.rotate_90_ccw_ij();
 
                     if (original.x != coord.x || original.y != coord.y || original.level != coord.level) {
                         if (!silent) {
@@ -161,6 +179,7 @@ public class TestCoordinate {
                 }
             }
         }
+
 
         return true;
     }
