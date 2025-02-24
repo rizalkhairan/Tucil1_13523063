@@ -5,5 +5,5 @@ AAB
 AAA
 BAA
 
-Solve time: 0 ms
-Cases examined: 564
+Solve time: 2 ms
+Cases examined: 836

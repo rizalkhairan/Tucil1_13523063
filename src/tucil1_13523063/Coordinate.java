@@ -60,6 +60,13 @@ public class Coordinate {
         this.x = -this.x;
     }
 
+    // Reflect along i-j
+    public void reflect_i_j() {
+        int temp = this.x;
+        this.x = this.y;
+        this.y = temp;
+    }
+
     // Rotate about axis k
     public void rotate_90_cw_k() {
         int temp = this.x;

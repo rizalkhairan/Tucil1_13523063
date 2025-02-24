@@ -6,4 +6,4 @@ ABA
 AAD
 
 Solve time: 0 ms
-Cases examined: 354
+Cases examined: 522

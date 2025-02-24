@@ -127,6 +127,33 @@ public class Solve {
                 }
             }
 
+            // Flipped along i-j
+            if (!problem.solved()) {
+                currentBlock.reflect_i_j();
+                currentBlock.raise();
+
+                // Not flipped. All rotations about the vertical
+                Solve.recurse_3D_branch(problem, blockIndex, coord, 0);
+                Solve.recurse_3D_branch(problem, blockIndex, coord, 0);
+                Solve.recurse_3D_branch(problem, blockIndex, coord, 0);
+                Solve.recurse_3D_branch(problem, blockIndex, coord, 0);
+
+                // Vertically flipped. All rotations about the vertical
+                if (!problem.solved()) {
+                    currentBlock.reflect_k();
+                    Solve.recurse_3D_branch(problem, blockIndex, coord, 0);
+                    Solve.recurse_3D_branch(problem, blockIndex, coord, 0);
+                    Solve.recurse_3D_branch(problem, blockIndex, coord, 0);
+                    Solve.recurse_3D_branch(problem, blockIndex, coord, 0);
+                }
+
+                if (!problem.solved()) {
+                    currentBlock.reflect_k();
+                    currentBlock.flatten();
+                    currentBlock.reflect_i_j();
+                }
+            }
+
         }
     }
 

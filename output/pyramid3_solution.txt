@@ -6,4 +6,4 @@ ABB
 ABD
 
 Solve time: 0 ms
-Cases examined: 357
+Cases examined: 525

@@ -132,6 +132,34 @@ public class TestCoordinate {
             }
         }
 
+        for (int x=-20;x<=20;x++) {
+            for (int y=-20;y<=20;y++) {
+                original = new Coordinate(x, y, 0);     
+                test = new Coordinate(x, y, 0);
+                original.reflect_i_j();
+                test.reflect_i_j();
+                test.raise();
+                test.flatten();
+
+                if (!silent) {
+                    System.out.print("Original | Test: ");
+                    original.print_coord();
+                    test.print_coord();
+                }
+
+                if (original.x == test.x && original.y == test.y && original.level == test.level) {
+                    if (!silent) {
+                        System.out.println("OK");
+                    }
+                } else {
+                    if (!silent) {
+                        System.out.println("ERROR");
+                    }
+                    return false;
+                }
+            }
+        }
+
         return true;
     }
 }

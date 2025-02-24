@@ -92,6 +92,13 @@ public class Block {
         }
     }
 
+    // Reflect along i-j
+    public void reflect_i_j() {
+        for (int i=0;i<this.shape.length;i++) {
+            this.shape[i].reflect_i_j();
+        }
+    }
+
     // Rotation about (0, 0) which is guaranteed to incide with the block
     public void rotate_90_cw_k(int n) {
         int times = n % 4;

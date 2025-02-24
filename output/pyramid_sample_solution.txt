@@ -5,5 +5,5 @@ AAD
 BAF
 BCC
 
-Solve time: 1 ms
-Cases examined: 475
+Solve time: 0 ms
+Cases examined: 699
